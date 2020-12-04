@@ -48,7 +48,7 @@ func countValidPasspords(inputList:[String]) ->[String] {
     
     return validatedList
 }
-"hgt:176cm\niyr:2013\nhcl:#fffffd ecl:amb\nbyr:2000\neyr:2034\ncid:89 pid:934693255"
+//"hgt:176cm\niyr:2013\nhcl:#fffffd ecl:amb\nbyr:2000\neyr:2034\ncid:89 pid:934693255"
 
 
 func countParseAndValidate(inputList: [String] ,regex: String) -> Int {
@@ -64,16 +64,6 @@ func countParseAndValidate(inputList: [String] ,regex: String) -> Int {
     return count
 }
 
-func validatePID(pid: String) -> Bool {
-    
-    guard Int(pid) != nil else {
-        return false
-    }
-    if pid.count == 9 {
-        return true
-    }
-    return false
-}
 
 var regex = "(byr:(19[2-9][0-9]|200[0-2])(\\n|\\s|$))|(iyr:(201[0-9]|2020)(\\n|\\s|$))|(hcl:#[0-9a-f]{6}(\\n|\\s|$))|(eyr:(202[0-9]|2030)(\\n|\\s|$))|(hgt:(((1[5-8][0-9]|19[0-3])cm)|((59|6[0-9]|7[0-6])in))(\\n|\\s|$))|(ecl:(amb|blu|brn|gry|grn|hzl|oth))(\\n|\\s|$)|(pid:([0-9]{9})(\\n|\\s|$))"
 
