@@ -26,9 +26,9 @@ func matches(for regex: String, in text: String) -> [String] {
 
 let url = Bundle.main.url(forResource: "input", withExtension: "txt")!
 
-let string = try! String(contentsOf: url)
+let fileInput = try! String(contentsOf: url)
 
-let lines = string.components(separatedBy: "\n\n")
+let lines = fileInput.components(separatedBy: "\n\n")
 
 func countValidPasspords(inputList:[String]) ->[String] {
     var validatedList = [String]()
@@ -48,7 +48,7 @@ func countValidPasspords(inputList:[String]) ->[String] {
     
     return validatedList
 }
-//"hgt:176cm\niyr:2013\nhcl:#fffffd ecl:amb\nbyr:2000\neyr:2034\ncid:89 pid:934693255"
+"hgt:176cm\niyr:2013\nhcl:#fffffd ecl:amb\nbyr:2000\neyr:2034\ncid:89 pid:934693255"
 
 
 func countParseAndValidate(inputList: [String] ,regex: String) -> Int {
@@ -64,34 +64,32 @@ func countParseAndValidate(inputList: [String] ,regex: String) -> Int {
     return count
 }
 
-
 var regex = "(byr:(19[2-9][0-9]|200[0-2])(\\n|\\s|$))|(iyr:(201[0-9]|2020)(\\n|\\s|$))|(hcl:#[0-9a-f]{6}(\\n|\\s|$))|(eyr:(202[0-9]|2030)(\\n|\\s|$))|(hgt:(((1[5-8][0-9]|19[0-3])cm)|((59|6[0-9]|7[0-6])in))(\\n|\\s|$))|(ecl:(amb|blu|brn|gry|grn|hzl|oth))(\\n|\\s|$)|(pid:([0-9]{9})(\\n|\\s|$))"
 
 var validPasswords = countValidPasspords(inputList: lines)
 
 var validPasswordsCount = validPasswords.count
 var validRulesCount = countParseAndValidate(inputList: validPasswords, regex: regex)
-//var validateHcl = validateRegex(input: "#123abc", pattern: "#[0-9a-f]{6}(\n|\\s))")
-//var validateIyr = validateRegex(input: "2020", pattern: "(201[0-9]|202[0])(\n|\\s)")
-//var eyr =  validateRegex(input: "2020", pattern: "(202[0-9]|203[0])(\n|\\s)")
 
 
 
 
-//(byr:(19[2-9][0-9]|200[0-2])(\n|\s|$))
-//&
-//    (iyr:(201[0-9]|2020)(\n|\s|$))
-//&
-//(hcl:#[0-9a-f]{6}(\n|\s|$))
-//&
-//    (eyr:(202[0-9]|2030)(\n|\s|$))
-//&
-//    (hgt:(((1[5-8][0-9]|19[0-3])cm)|((59|6[0-9]|7[0-6])in))(\n|\s|$))
-//&
-//    (ecl:(amb|blu|brn|gry|grn|hzl|oth))(\n|\s|$)
-//     &
-//        (pid:([0-9]{9})(\n|\s|$))
+//one regex solution.
 
+var oneRegex =
+    "(" +
+        "((byr:(19[2-9][0-9]|200[0-2])(\\n|\\s|$))" + "|" +
+        "(iyr:(201[0-9]|2020)(\\n|\\s|$))" + "|" +
+        "(hcl:#[0-9a-f]{6}(\\n|\\s|$))" + "|" +
+        "(eyr:(202[0-9]|2030)(\\n|\\s|$))" + "|" +
+        "(hgt:(((1[5-8][0-9]|19[0-3])cm)" + "|" +
+        "((59|6[0-9]|7[0-6])in))(\\n|\\s|$))" + "|" +
+        "(ecl:(amb|blu|brn|gry|grn|hzl|oth))(\\n|\\s|$)" + "|" +
+        "(pid:([0-9]{9})(\\n|\\s|$))" +
+    ")" +
+    "((cid:[\\S]*)[\\n|\\s|$])?)" +
+    "{7}"
 
+let fileInput2 = try! String(contentsOf: url)
 
-  
+var countValidatedWithOneRegex = matches(for: oneRegex, in: fileInput2).count
